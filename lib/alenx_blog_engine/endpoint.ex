@@ -36,5 +36,6 @@ defmodule AlenxBlogEngine.Endpoint do
     key: "_alenx_blog_engine_key",
     signing_salt: "At7n5uXF"
 
+  plug CORSPlug  
   plug AlenxBlogEngine.Router
 end
