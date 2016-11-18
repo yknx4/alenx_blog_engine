@@ -3,7 +3,7 @@ defmodule AlenxBlogEngine.UserTest do
 
   alias AlenxBlogEngine.User
 
-  @valid_attrs %{email: "bar@baz.com", password: "s3cr3t"}
+  @valid_attrs %{email: "bar@baz.com", password: "s3cr3t", username: "foobar"}
 
   test "changeset with valid attributes" do
     changeset = User.changeset(%User{}, @valid_attrs)

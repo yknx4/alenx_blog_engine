@@ -3,6 +3,7 @@ defmodule AlenxBlogEngine.User do
 
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password_hash, :string
     field :password, :string, virtual: true
 
@@ -14,6 +15,8 @@ defmodule AlenxBlogEngine.User do
     |> cast(params, ~w(email), [])
     |> validate_length(:email, min: 1, max: 255)
     |> validate_format(:email, ~r/@/)
+    |> cast(params, ~w(username), [])
+    |> validate_length(:username, min: 1, max: 255)
   end
 
   def registration_changeset(model, params \\ :empty) do

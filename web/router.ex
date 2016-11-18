@@ -8,6 +8,7 @@ defmodule AlenxBlogEngine.Router do
   scope "/api", AlenxBlogEngine do
     pipe_through :api
 
+    resources "/users", UserController, only: [:create]
     resources "/posts", PostController, except: [:new, :edit]
   end
 end
