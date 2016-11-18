@@ -10,5 +10,6 @@ defmodule AlenxBlogEngine.Router do
 
     resources "/users", UserController, only: [:create]
     resources "/posts", PostController, except: [:new, :edit]
+    resources "/sessions", SessionController, only: [:create]
   end
 end
