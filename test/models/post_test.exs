@@ -3,7 +3,7 @@ defmodule AlenxBlogEngine.PostTest do
 
   alias AlenxBlogEngine.Post
 
-  @valid_attrs %{description: "some content", draft: true, title: "some content"}
+  @valid_attrs %{user_id: 1, description: "some content", draft: true, title: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
