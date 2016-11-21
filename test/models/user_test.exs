@@ -2,37 +2,36 @@ defmodule AlenxBlogEngine.UserTest do
   use AlenxBlogEngine.ModelCase
 
   alias AlenxBlogEngine.User
-
-  @valid_attrs %{email: "bar@baz.com", password: "s3cr3t", username: "foobar"}
+  import AlenxBlogEngine.Factory
 
   test "changeset with valid attributes" do
-    changeset = User.changeset(%User{}, @valid_attrs)
+    changeset = User.changeset(%User{}, params_for(:user))
     assert changeset.valid?
   end
 
   test "changeset, email too short " do
     changeset = User.changeset(
-      %User{}, Map.put(@valid_attrs, :email, "")
+      %User{}, Map.put(params_for(:user), :email, "")
     )
     refute changeset.valid?
   end
 
   test "changeset, email invalid format" do
     changeset = User.changeset(
-      %User{}, Map.put(@valid_attrs, :email, "foo.com")
+      %User{}, Map.put(params_for(:user), :email, "foo.com")
     )
     refute changeset.valid?
   end
 
   test "registration_changeset" do
-    changeset = User.registration_changeset(%User{}, @valid_attrs)
+    changeset = User.registration_changeset(%User{}, params_for(:user))
     assert changeset.changes.password_hash
     assert changeset.valid?
   end
 
   test "registration_changeset, password too short" do
     changeset = User.registration_changeset(
-      %User{}, Map.put(@valid_attrs, :password, "12345")
+      %User{}, Map.put(params_for(:user), :password, "12345")
     )
     refute changeset.valid?
   end

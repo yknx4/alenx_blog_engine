@@ -1,9 +1,11 @@
+require Logger
 defmodule AlenxBlogEngine.SessionControllerTest do
   use AlenxBlogEngine.ConnCase
+  import AlenxBlogEngine.Factory
 
-  alias AlenxBlogEngine.Session
-  alias AlenxBlogEngine.User
-  @valid_attrs %{email: "foo@bar.com", password: "s3cr3t", username: "foobar"}
+  alias AlenxBlogEngine.{Session, User}
+  
+  @valid_attrs params_for(:user) |> Map.delete(:inserted_at) |> Map.delete(:updated_at)
 
   setup %{conn: conn} do
     changeset =  User.registration_changeset(%User{}, @valid_attrs)

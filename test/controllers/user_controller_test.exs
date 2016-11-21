@@ -1,8 +1,9 @@
 defmodule AlenxBlogEngine.UserControllerTest do
   use AlenxBlogEngine.ConnCase
-
   alias AlenxBlogEngine.User
-  @valid_attrs %{username: "foobar", email: "foo@bar.com", password: "s3cr3t"}
+  import AlenxBlogEngine.Factory
+
+  @valid_attrs params_for(:user) |> Map.delete(:inserted_at) |> Map.delete(:updated_at)
   @invalid_attrs %{}
 
   setup %{conn: conn} do
@@ -16,7 +17,7 @@ defmodule AlenxBlogEngine.UserControllerTest do
     assert body["data"]["email"]
     assert body["data"]["username"]
     refute body["data"]["password"]
-    assert Repo.get_by(User, email: "foo@bar.com")
+    assert Repo.get_by(User, email: @valid_attrs[:email])
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do

@@ -1,25 +1,20 @@
 defmodule AlenxBlogEngine.PostControllerTest do
   use AlenxBlogEngine.ConnCase
+  import AlenxBlogEngine.Factory
 
-  alias AlenxBlogEngine.Post
-  alias AlenxBlogEngine.User
-  alias AlenxBlogEngine.Session
+  alias AlenxBlogEngine.{Post, User, Session}
 
   @valid_attrs %{draft: false, description: "some content", title: "some title"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    user = create_user(%{name: "jane"})
+    user = insert(:user)
     session = create_session(user)
 
     conn = conn
     |> put_req_header("accept", "application/json")
     |> put_req_header("authorization", "Token token=\"#{session.token}\"")
     {:ok, conn: conn, current_user: user }
-  end
-
-  def create_user(%{name: name}) do
-    User.changeset(%User{}, %{email: "#{name}@example.com", password: "password", username: "foobar#{name}"}) |> Repo.insert!
   end
 
   def create_session(user) do
@@ -35,7 +30,7 @@ defmodule AlenxBlogEngine.PostControllerTest do
   test "lists all entries on index", %{conn: conn, current_user: current_user} do
     create_post(%{title: "first", description: "our first post", user_id: current_user.id})
 
-    another_user = create_user(%{name: "johndoe"})
+    another_user = insert(:user)
     create_post(%{title: "second", description: "thier first post", user_id: another_user.id})
 
     conn = get conn, post_path(conn, :index)
