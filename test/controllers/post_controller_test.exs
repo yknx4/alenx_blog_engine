@@ -4,7 +4,7 @@ defmodule AlenxBlogEngine.PostControllerTest do
 
   alias AlenxBlogEngine.{Post, User, Session}
 
-  @valid_attrs %{draft: false, description: "some content", title: "some title"}
+  @valid_attrs params_for(:post) |> Map.delete(:user_id) |> Map.delete(:inserted_at) |> Map.delete(:updated_at)
   @invalid_attrs %{}
 
   setup %{conn: conn} do
@@ -23,20 +23,15 @@ defmodule AlenxBlogEngine.PostControllerTest do
     Session.create_changeset(%Session{user_id: user.id}, %{}) |> Repo.insert!
   end
 
-  def create_post(%{description: _description, user_id: _user_id} = options) do
-    Post.changeset(%Post{}, options) |> Repo.insert!
-  end
-
   test "lists all entries on index", %{conn: conn, current_user: current_user} do
-    create_post(%{title: "first", description: "our first post", user_id: current_user.id})
+    insert(:post, user: current_user)
 
     another_user = insert(:user)
-    create_post(%{title: "second", description: "thier first post", user_id: another_user.id})
+    insert(:post, user: another_user)
 
     conn = get conn, post_path(conn, :index)
 
     assert Enum.count(json_response(conn, 200)["data"]) == 1
-    assert %{"description" => "our first post"} = hd(json_response(conn, 200)["data"])
   end
 
   test "creates and renders resource when data is valid", %{conn: conn, current_user: current_user} do
