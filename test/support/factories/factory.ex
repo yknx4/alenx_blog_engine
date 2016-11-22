@@ -12,8 +12,8 @@ defmodule AlenxBlogEngine.Factory do
   def post_factory do
     %Post{
       user: build(:user),
-      title: sequence(:title, &"title-#{&1}"),
-      description: "description",
+      title: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      description: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
       draft: false
     }
   end
@@ -21,8 +21,8 @@ defmodule AlenxBlogEngine.Factory do
   def user_factory do
     password = "pa4ssw0rd"
     %User{
-      email: sequence(:email, &"email-#{&1}@example.com"),
-      username: sequence(:username, &"user#{&1}"),
+      email: Faker.Internet.email,
+      username: Faker.Internet.user_name,
       password: "pa4ssw0rd",
       password_hash: Comeonin.Bcrypt.hashpwsalt(password)
     }
