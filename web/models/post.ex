@@ -3,7 +3,7 @@ defmodule AlenxBlogEngine.Post do
 
   schema "posts" do
     field :title, :string
-    field :description, :string
+    field :body, :string
     field :draft, :boolean, default: false
     belongs_to :user, AlenxBlogEngine.User
 
@@ -15,7 +15,7 @@ defmodule AlenxBlogEngine.Post do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:user_id, :title, :description, :draft])
-    |> validate_required([:user_id, :title, :description, :draft])
+    |> cast(params, [:user_id, :title, :body, :draft])
+    |> validate_required([:user_id, :title, :body, :draft])
   end
 end

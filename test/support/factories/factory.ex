@@ -13,7 +13,7 @@ defmodule AlenxBlogEngine.Factory do
     %Post{
       user: build(:user),
       title: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
-      description: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+      body: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
       draft: false
     }
   end
