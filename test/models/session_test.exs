@@ -1,13 +1,16 @@
 defmodule AlenxBlogEngine.SessionTest do
   use AlenxBlogEngine.ModelCase
+  import AlenxBlogEngine.Factory
 
   alias AlenxBlogEngine.Session
 
-  @valid_attrs %{user_id: "12345"}
+  defp valid_attrs do
+    params_with_assocs(:session) |> Map.delete(:inserted_at) |> Map.delete(:updated_at)
+  end
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = Session.changeset(%Session{}, @valid_attrs)
+    changeset = Session.changeset(%Session{}, valid_attrs)
     assert changeset.valid?
   end
 
@@ -17,7 +20,7 @@ defmodule AlenxBlogEngine.SessionTest do
   end
 
   test "create_changeset with valid attributes" do
-    changeset = Session.create_changeset(%Session{}, @valid_attrs)
+    changeset = Session.create_changeset(%Session{}, valid_attrs)
     assert changeset.changes.token
     assert changeset.valid?
   end

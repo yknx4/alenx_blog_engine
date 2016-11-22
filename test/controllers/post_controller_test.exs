@@ -9,18 +9,12 @@ defmodule AlenxBlogEngine.PostControllerTest do
 
   setup %{conn: conn} do
     user = insert(:user)
-    session = create_session(user)
+    session = insert(:session, user: user)
 
     conn = conn
     |> put_req_header("accept", "application/json")
     |> put_req_header("authorization", "Token token=\"#{session.token}\"")
     {:ok, conn: conn, current_user: user }
-  end
-
-  def create_session(user) do
-    # in the last blog post I had a copy-paste error
-    # so you may need to use Session.registration_changeset
-    Session.create_changeset(%Session{user_id: user.id}, %{}) |> Repo.insert!
   end
 
   test "lists all entries on index", %{conn: conn, current_user: current_user} do

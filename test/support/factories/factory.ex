@@ -1,6 +1,13 @@
 defmodule AlenxBlogEngine.Factory do
-  alias AlenxBlogEngine.{Repo, User, Post}
+  alias AlenxBlogEngine.{Repo, User, Post, Session}
   use ExMachina.Ecto, repo: Repo
+
+  def session_factory do
+    %Session{
+      user: build(:user),
+      token: SecureRandom.urlsafe_base64
+    }
+  end
 
   def post_factory do
     %Post{
