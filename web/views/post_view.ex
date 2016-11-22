@@ -10,9 +10,12 @@ defmodule AlenxBlogEngine.PostView do
   end
 
   def render("post.json", %{post: post}) do
-    %{id: post.id,
+    %{
+      id: post.id,
+      user_id: post.user_id,
       title: post.title,
-      description: post.description,
-      draft: post.draft}
+      body: post.body,
+      draft: post.draft
+    }
   end
 end

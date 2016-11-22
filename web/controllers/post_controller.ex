@@ -5,11 +5,10 @@ defmodule AlenxBlogEngine.PostController do
 
   plug :scrub_params, "post" when action in [:create, :update]
 
-  plug AlenxBlogEngine.Authentication
+  plug AlenxBlogEngine.Authentication when not action in [:index, :show]
 
   def index(conn, _params) do
-    user_id = conn.assigns.current_user.id
-    query = from t in Post, where: t.user_id == ^user_id
+    query = from t in Post
     posts = Repo.all(query)
     render(conn, "index.json", posts: posts)
   end

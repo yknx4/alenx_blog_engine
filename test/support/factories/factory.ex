@@ -23,7 +23,7 @@ defmodule AlenxBlogEngine.Factory do
     %User{
       email: Faker.Internet.email,
       username: Faker.Internet.user_name,
-      password: "pa4ssw0rd",
+      password: password,
       password_hash: Comeonin.Bcrypt.hashpwsalt(password)
     }
   end

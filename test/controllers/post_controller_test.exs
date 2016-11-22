@@ -25,7 +25,7 @@ defmodule AlenxBlogEngine.PostControllerTest do
 
     conn = get conn, post_path(conn, :index)
 
-    assert Enum.count(json_response(conn, 200)["data"]) == 1
+    assert Enum.count(json_response(conn, 200)["data"]) == 2
   end
 
   test "creates and renders resource when data is valid", %{conn: conn, current_user: current_user} do
