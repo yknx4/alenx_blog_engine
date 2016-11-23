@@ -1,7 +1,13 @@
 defmodule AlenxBlogEngine.Factory do
-  alias AlenxBlogEngine.{Repo, User, Post, Session}
+  alias AlenxBlogEngine.{Repo, User, Post, Session, Tag}
   use ExMachina.Ecto, repo: Repo
 
+  def tag_factory do
+    %Tag{
+      name: Faker.Lorem.word
+    }
+  end
+  
   def session_factory do
     %Session{
       user: build(:user),

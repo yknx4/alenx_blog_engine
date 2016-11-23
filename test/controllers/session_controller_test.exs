@@ -1,4 +1,3 @@
-require Logger
 defmodule AlenxBlogEngine.SessionControllerTest do
   use AlenxBlogEngine.ConnCase
   import AlenxBlogEngine.Factory
