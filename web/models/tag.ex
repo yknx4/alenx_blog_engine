@@ -3,6 +3,8 @@ defmodule AlenxBlogEngine.Tag do
 
   schema "tags" do
     field :name, :string
+    
+    many_to_many :posts, AlenxBlogEngine.Tag, join_through: AlenxBlogEngine.PostTag
 
     timestamps()
   end

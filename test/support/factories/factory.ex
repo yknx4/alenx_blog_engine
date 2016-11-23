@@ -1,6 +1,13 @@
 defmodule AlenxBlogEngine.Factory do
-  alias AlenxBlogEngine.{Repo, User, Post, Session, Tag}
+  alias AlenxBlogEngine.{Repo, User, Post, Session, Tag, PostTag}
   use ExMachina.Ecto, repo: Repo
+
+  def post_tag_factory do
+    %PostTag{
+      post: build(:post),
+      tag: build(:tag)
+    }  
+  end
 
   def tag_factory do
     %Tag{
