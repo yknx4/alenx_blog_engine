@@ -31,6 +31,12 @@ defmodule AlenxBlogEngine.Factory do
     }
   end
 
+  def with_tags(post) do
+    insert(:post_tag, post: post)
+    insert(:post_tag, post: post)
+    post
+  end
+
   def user_factory do
     password = "pa4ssw0rd"
     %User{
