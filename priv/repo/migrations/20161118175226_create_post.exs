@@ -4,7 +4,7 @@ defmodule AlenxBlogEngine.Repo.Migrations.CreatePost do
   def change do
     create table(:posts) do
       add :title, :string
-      add :description, :string
+      add :description, :text
       add :draft, :boolean, default: false, null: false
 
       timestamps()
