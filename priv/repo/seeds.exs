@@ -13,18 +13,23 @@ alias AlenxBlogEngine.{Repo, User, Post, Tag, PostTag}
 Faker.start
 
 defmodule AlenxBlogEngine.Seeds do
-    @tags []
+
+    def random_string(length) do
+      :crypto.strong_rand_bytes(length) |> Base.url_encode64 |> binary_part(0, length)
+    end
+
     def new_tag do
         Repo.insert! %Tag{
-            name: "#{Faker.Lorem.word} #{Faker.Lorem.word} #{Faker.Lorem.word}"
+            name: "#{Faker.Lorem.word} #{Faker.Lorem.word} #{Faker.Lorem.word} #{random_string(5)}"
         }
     end
 
-    def get_tag do
-        if Enum.count(@tags) < 10 do
-            @tags ++ List.wrap(new_tag)
-        end
-        Enum.take_random(@tags, 1) |> List.first
+    def generate_tags(number) do
+        Enum.map(1..number, fn(_) -> new_tag end)
+    end
+
+    def get_tag(tags) do
+        Enum.take_random(tags, 1) |> List.first
     end
 
     def new_user do
@@ -45,10 +50,19 @@ defmodule AlenxBlogEngine.Seeds do
         }
     end
 
-    def with_tag(post) do
+    def with_tags(post, tags) do
+        with_tags(post, tags, :rand.uniform(3))
+    end
+
+    def with_tags(post, tags, number) do
+        for _ <- 1..number do with_tag(post, tags) end
+        post
+    end
+
+    def with_tag(post, tags) do
         Repo.insert %PostTag{
             post: post,
-            tag: get_tag
+            tag: get_tag(tags)
         }
         post
     end
@@ -56,7 +70,8 @@ end
 alias AlenxBlogEngine.Seeds
 
 user = Seeds.new_user
+tags = Seeds.generate_tags(50)
 
 for _ <- 1..1000 do 
-    Seeds.new_post(user) |> Seeds.with_tag |> Seeds.with_tag
+    Seeds.new_post(user) |> Seeds.with_tags(tags)
 end
