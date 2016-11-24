@@ -44,8 +44,8 @@ defmodule AlenxBlogEngine.Seeds do
     def new_post(user) do
         Repo.insert! %Post{
          user: user,
-         title: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
-         body: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+         title: Faker.Lorem.sentence(%Range{first: 1, last: 5}),
+         body: Faker.Lorem.paragraph(%Range{first: 1, last: 10}),
          draft: false
         }
     end
