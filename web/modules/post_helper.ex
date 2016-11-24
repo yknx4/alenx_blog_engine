@@ -1,9 +1,25 @@
-defmodule AlenxBlogEngine.TagHelper do
+defmodule AlenxBlogEngine.PostHelper do
     import Ecto.Query
     alias AlenxBlogEngine.{Repo, PostTag}
 
+    def with_tags(post) when is_map(post) do
+        Map.put_new(post, "tag_ids", get_tags(post))
+    end
+
+    def with_tags(posts) when is_list(posts) do
+        Enum.map(posts, &(with_tags/1))
+    end
+
+    def get_tags(posts) when is_list(posts) do
+        Stream.transform(posts, %{}, &(Map.put(&2, &1.id, get_tags(&1.id))))
+    end
+
     def get_tags(post) when is_map(post) do
-        get_tags(post.id)
+        if Map.has_key?(post, "tag_ids") do
+          post["tag_ids"]
+        else
+          get_tags(post.id)
+        end
     end
 
     def get_tags(post_id) when is_integer(post_id) do

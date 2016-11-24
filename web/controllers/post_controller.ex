@@ -1,7 +1,7 @@
 defmodule AlenxBlogEngine.PostController do
   use AlenxBlogEngine.Web, :controller
 
-  alias AlenxBlogEngine.Post
+  alias AlenxBlogEngine.{Post, PostHelper, EctoHelper}
 
   plug :scrub_params, "post" when action in [:create, :update]
 
@@ -9,6 +9,8 @@ defmodule AlenxBlogEngine.PostController do
 
   def index(conn, _params) do
     query = from t in Post
+    posts = Repo.all(query) |> PostHelper.with_tags |> EctoHelper.wrap_like_query
+    IO.inspect posts
     posts = Repo.all(query)
     render(conn, "index.json", posts: posts)
   end
