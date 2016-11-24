@@ -15,7 +15,8 @@ defmodule AlenxBlogEngine.PostView do
       user_id: post.user_id,
       title: post.title,
       body: post.body,
-      draft: post.draft
+      draft: post.draft,
+      tag_ids: AlenxBlogEngine.TagHelper.get_tags(post)
     }
   end
 end
