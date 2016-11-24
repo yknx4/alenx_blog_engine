@@ -20,7 +20,7 @@ defmodule AlenxBlogEngine.Seeds do
 
     def new_tag do
         Repo.insert! %Tag{
-            name: "#{Faker.Lorem.word} #{Faker.Lorem.word} #{Faker.Lorem.word} #{random_string(5)}"
+            name: "#{Faker.Commerce.product_name_adjective} #{random_string(8)}"
         }
     end
 
