@@ -44,7 +44,8 @@ defmodule AlenxBlogEngine.Mixfile do
       {:secure_random, "~> 0.2"},
       {:ex_machina, "~> 1.0"},
       {:faker, "~> 0.7"},
-      {:kerosene, "~> 0.5.0"}
+      {:kerosene, "~> 0.5.0"},
+      {:ja_serializer, "~> 0.11.1"}
     ]
   end
 
