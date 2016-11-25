@@ -7,11 +7,14 @@ defmodule AlenxBlogEngine.PostController do
 
   plug AlenxBlogEngine.Authentication when not action in [:index, :show]
 
-  def index(conn, _params) do
+  def index(conn, params) do
     query = from p in Post
-    posts = Repo.all(query)
-            |> Repo.preload(:tags)
-    render(conn, "index.json", posts: posts)
+    {posts, kerosene} = query
+                        |> Repo.paginate(params)
+
+    posts = Repo.preload(posts, :tags)
+
+    render(conn, "index.json", posts: posts, kerosene: kerosene)
   end
 
   def create(conn, %{"post" => post_params}) do
