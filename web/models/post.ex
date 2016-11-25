@@ -7,7 +7,7 @@ defmodule AlenxBlogEngine.Post do
     field :draft, :boolean, default: false
 
     belongs_to :user, AlenxBlogEngine.User
-    many_to_many :tags, AlenxBlogEngine.Post, join_through: AlenxBlogEngine.PostTag
+    many_to_many :tags, AlenxBlogEngine.Tag, join_through: AlenxBlogEngine.PostTag
 
     timestamps()
   end

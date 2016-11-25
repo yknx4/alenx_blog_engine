@@ -8,10 +8,9 @@ defmodule AlenxBlogEngine.PostController do
   plug AlenxBlogEngine.Authentication when not action in [:index, :show]
 
   def index(conn, _params) do
-    query = from t in Post
-    posts = Repo.all(query) |> PostHelper.with_tags |> EctoHelper.wrap_like_query
-    IO.inspect posts
+    query = from p in Post
     posts = Repo.all(query)
+            |> Repo.preload(:tags)
     render(conn, "index.json", posts: posts)
   end
 
