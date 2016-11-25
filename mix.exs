@@ -19,7 +19,8 @@ defmodule AlenxBlogEngine.Mixfile do
   def application do
     [mod: {AlenxBlogEngine, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :ex_machina, :faker]]
+                    :phoenix_ecto, :postgrex, :comeonin, :ex_machina, :faker,
+                    :kerosene]]
 
   end
 
@@ -42,7 +43,8 @@ defmodule AlenxBlogEngine.Mixfile do
       {:comeonin, "~> 2.0"},
       {:secure_random, "~> 0.2"},
       {:ex_machina, "~> 1.0"},
-      {:faker, "~> 0.7"}
+      {:faker, "~> 0.7"},
+      {:kerosene, "~> 0.5.0"}
     ]
   end
 
