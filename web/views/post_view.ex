@@ -1,9 +1,11 @@
 defmodule AlenxBlogEngine.PostView do
   use AlenxBlogEngine.Web, :view
+  import Kerosene.JSON
 
-  def render("index.json", %{posts: posts}) do
-    %{data: render_many(posts, AlenxBlogEngine.PostView, "post.json")}
-  end
+  def render("index.json", %{posts: posts, kerosene: kerosene, conn: conn}) do
+      %{data: render_many(posts, AlenxBlogEngine.PostView, "post.json"),
+        pagination: paginate(conn, kerosene)}
+    end
 
   def render("show.json", %{post: post}) do
     %{data: render_one(post, AlenxBlogEngine.PostView, "post.json")}
