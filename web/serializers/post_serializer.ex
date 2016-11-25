@@ -2,7 +2,7 @@ defmodule AlenxBlogEngine.PostSerializer do
   use JaSerializer
 
   location "/posts/:id"
-  attributes [:id, :title, :body, :user_id, :created_at, :updated_at, :excerpt, :tag_ids]
+  attributes [:id, :title, :body, :user_id, :inserted_at, :updated_at, :excerpt, :tag_ids]
 
   def excerpt(post, _conn) do
     [first | _ ] = String.split(post.body, ".")
