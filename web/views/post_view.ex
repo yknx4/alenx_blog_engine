@@ -7,8 +7,7 @@ defmodule AlenxBlogEngine.PostView do
     pagination = paginate(conn, kerosene)
                  |> PaginationHelper.kerosene_to_jsonapi
 
-    posts = posts
-            |> PostSerializer.format(conn, page: pagination)
+    posts = JaSerializer.format(PostSerializer, posts, conn, page: pagination)
   end
 
   def render("show.json", %{post: post}) do
